@@ -9,7 +9,9 @@ from Douyu.items import DouyuItem
 class DouyuSpider(scrapy.Spider):
     name = 'douyu'
     allowed_domains = ['douyucdn.cn']
-    start_urls = ['http://capi.douyucdn.cn/api/v1/getVerticalRoom?limit=60&offset=']
+    base_url = 'http://capi.douyucdn.cn/api/v1/getVerticalRoom?limit=60&offset='
+    offset = 0
+    start_urls = [base_url + str(offset)]
 
     def parse(self, response):
         print('我是第一步')
@@ -25,4 +27,7 @@ class DouyuSpider(scrapy.Spider):
             item['anchor_city'] = room_dict['anchor_city']
 
             yield item
+        self.offset += 60
+        url = self.base_url + str(self.offset)
+        yield scrapy.Request(url, callback=self.parse)
 

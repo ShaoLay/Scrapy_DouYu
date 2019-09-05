@@ -26,7 +26,10 @@ class DouyuImagePipeline(ImagesPipeline):
         # 新的  path + 拼接昵称
         new_path = IMAGES_STORE + item['nickname'] + '.jpg'
         # 3.替换
-        os.rename(old_path, new_path)
+        try:
+            os.rename(old_path, new_path)
+        except Exception as e:
+            print('图片路径修改完毕！')
         return item
 
 
