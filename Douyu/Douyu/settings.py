@@ -14,6 +14,9 @@ BOT_NAME = 'Douyu'
 SPIDER_MODULES = ['Douyu.spiders']
 NEWSPIDER_MODULE = 'Douyu.spiders'
 
+# 设置 请求图片  的路径
+IMAGES_STORE = 'images/'
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT="Mozilla/5.0 (iPhone; CPU iPhone OS 8_0 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Version/8.0 Mobile/12A365 Safari/600.1.4"
@@ -65,7 +68,9 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+    'Douyu.pipelines.DouyuImagePipeline': 200,
    'Douyu.pipelines.DouyuPipeline': 300,
+
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

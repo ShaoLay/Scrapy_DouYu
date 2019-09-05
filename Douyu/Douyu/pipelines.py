@@ -6,6 +6,17 @@
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 import json
 
+import scrapy
+from scrapy.pipelines.images import ImagesPipeline
+
+
+class DouyuImagePipeline(ImagesPipeline):
+    def get_media_requests(self, item, info):
+        # 图片url
+        image_url = item['vertical_src']
+        # 发送请求
+        yield scrapy.Request(image_url)
+
 
 class DouyuPipeline(object):
     def open_spider(self, spider):
